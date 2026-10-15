@@ -2,7 +2,7 @@
 
 A static React + Vite + TypeScript motorcycle safety proof of concept. The centered desktop phone contains the actual app; mobile browsers get a full-screen interface.
 
-Intended site: https://codingwally.github.io/RIDESAFE/
+Published site: https://codingwally.github.io/RIDESAFE/
 
 ## Development
 
