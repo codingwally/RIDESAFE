@@ -2,7 +2,7 @@
 
 A static React + Vite + TypeScript motorcycle safety proof of concept. The centered desktop phone contains the actual app; mobile browsers get a full-screen interface.
 
-Intended site: https://codingwally.github.io/ride-safe-ph/
+Intended site: https://codingwally.github.io/RIDESAFE/
 
 ## Development
 
@@ -16,7 +16,7 @@ npm run build
 npm run preview
 ```
 
-Vite uses `/ride-safe-ph/` as its base path. Use the path shown by Vite when opening a local server. The app uses local state tabs, so GitHub Pages requires no SPA URL rewrite.
+Vite uses `/RIDESAFE/` as its base path. Use the path shown by Vite when opening a local server. The app uses local state tabs, so GitHub Pages requires no SPA URL rewrite.
 
 ### Browser tests
 
@@ -66,12 +66,12 @@ Fonts are self-hosted through Fontsource packages. No external font request or s
 
 The `.github/workflows/deploy.yml` workflow runs unit tests and the production build on pushes to `main`, then deploys `dist` with GitHub Pages Actions. It uses Node 22 and least-needed workflow permissions.
 
-1. Create the **new public repository** `codingwally/ride-safe-ph` and authorize Git access to it. Do not reuse or modify another repository.
-2. Push this repository's `main` branch to `https://github.com/codingwally/ride-safe-ph.git`.
+1. Use the user-provided repository `codingwally/RIDESAFE`. The repository was verified empty before this application was pushed.
+2. Push this repository's `main` branch to `https://github.com/codingwally/RIDESAFE.git`.
 3. In that repository's **Settings → Pages**, choose **GitHub Actions** as the source (or enable Pages with `build_type: workflow` via the API).
 4. Run or rerun **Deploy to GitHub Pages**. Confirm the deployment succeeds, then visit the intended site above.
 
-The current cloud GitHub integration returned HTTP 403 `Resource not accessible by integration` for repository creation. Thus the local implementation is prepared, but remote creation, push, deployment, and live-site verification remain blocked pending repository creation/access. A configured workflow alone is not a deployed site.
+The deployment workflow targets the user-provided `codingwally/RIDESAFE` repository. A configured workflow alone is not proof of a successful Pages deployment; check the Actions run and published site.
 
 ## Project structure
 

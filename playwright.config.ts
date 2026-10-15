@@ -5,7 +5,7 @@ export default defineConfig({
   workers: 1,
   timeout: 30000,
   use: {
-    baseURL: "http://127.0.0.1:5173/ride-safe-ph/",
+    baseURL: "http://127.0.0.1:5173/RIDESAFE/",
     launchOptions: {
       executablePath: process.env.CHROMIUM_PATH || "/usr/bin/chromium",
       args: ["--no-sandbox"],
@@ -14,7 +14,7 @@ export default defineConfig({
   },
   webServer: {
     command: "npm run dev -- --port 5173",
-    url: "http://127.0.0.1:5173/ride-safe-ph/",
+    url: "http://127.0.0.1:5173/RIDESAFE/",
     reuseExistingServer: true,
   },
 });
