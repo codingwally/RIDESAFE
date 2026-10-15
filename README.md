@@ -24,7 +24,7 @@ Vite uses `/RIDESAFE/` as its base path. Use the path shown by Vite when opening
 CHROMIUM_PATH=/path/to/chromium npm run test:e2e
 ```
 
-The default executable is `/usr/bin/chromium`. Browser tests intentionally intercept external map services with test-only fixtures and abort tiles. No fixtures are used by the application. Tests cover routing alternatives and failures, explicit search, nearby essentials, mobile layout, reports, quizzes, community posts, reward thresholds and redemption, profile persistence, corrupt local storage, and foreground GPS cleanup. Five unit tests check score weighting, limits, storage validation, and service-area bounds.
+The default executable is `/usr/bin/chromium`. Browser tests intentionally intercept external map services with test-only fixtures and abort tiles. No fixtures are used by the application. Tests cover routing alternatives and failures, explicit search, nearby essentials, mobile layout, reports, quizzes, community posts, reward thresholds and redemption, profile persistence, corrupt local storage, and foreground GPS cleanup. Two additional fresh-browser tests serve the repository as plain static files at phone and laptop viewport sizes. They catch missing compiled assets without relying on Vite. Five unit tests check score weighting, limits, storage validation, and service-area bounds.
 
 ## Features
 
@@ -64,7 +64,9 @@ Fonts are self-hosted through Fontsource packages. No external font request or s
 
 ## Deployment
 
-The `.github/workflows/deploy.yml` workflow runs unit tests and the production build on pushes to `main`, then deploys `dist` with GitHub Pages Actions. It uses Node 22 and least-needed workflow permissions.
+The `.github/workflows/deploy.yml` workflow runs unit tests and the production build on pushes to `main`, checks that the committed static site matches that build, then deploys `dist` with GitHub Pages Actions. It uses Node 22 and least-needed workflow permissions.
+
+The editable app lives in `app/`. `npm run build` also copies the compiled HTML, icon, and hashed assets to the repository root. These generated files and `.nojekyll` are committed so **both Actions deployment and main/root branch publishing serve a working compiled app**. This prevents a branch-triggered Pages build from overwriting the Actions deployment with raw TypeScript source. Keep earlier hashed assets to support cached HTML. Run `npm run build` and commit its generated changes before pushing application changes; CI rejects an outdated static site. Do not hand-edit the root `index.html`; edit `app/index.html` instead.
 
 1. Use the user-provided repository `codingwally/RIDESAFE`. The repository was verified empty before this application was pushed.
 2. Push this repository's `main` branch to `https://github.com/codingwally/RIDESAFE.git`.
@@ -75,11 +77,11 @@ The deployment workflow targets the user-provided `codingwally/RIDESAFE` reposit
 
 ## Project structure
 
-- `src/data.ts`: shared TypeScript models, destinations, educational content, labeled demo datasets.
-- `src/api.ts`: routing, search, and nearby-service adapters.
-- `src/state.ts`: browser persistence and platform-independent simulated scoring functions.
-- `src/MapView.tsx`: interactive Leaflet planner and foreground location lifecycle.
-- `src/Panels.tsx`: education, reports, community, profile, regulations, and reward flows.
-- `src/App.tsx`: desktop phone shell, mobile layout, and navigation.
+- `app/src/data.ts`: shared TypeScript models, destinations, educational content, labeled demo datasets.
+- `app/src/api.ts`: routing, search, and nearby-service adapters.
+- `app/src/state.ts`: browser persistence and platform-independent simulated scoring functions.
+- `app/src/MapView.tsx`: interactive Leaflet planner and foreground location lifecycle.
+- `app/src/Panels.tsx`: education, reports, community, profile, regulations, and reward flows.
+- `app/src/App.tsx`: desktop phone shell, mobile layout, and navigation.
 
 These interfaces and pure functions can be reused or extracted for a future Android app and shared backend. The web UI does not implement background tracking.
